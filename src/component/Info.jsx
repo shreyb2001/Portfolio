@@ -6,7 +6,7 @@ const Box = ({ text, link, btnText }) => (
   <div className=" relative bg-blue-500 p-4 pb-9 text-white rounded-2xl text-lg">
     {text}
     <a
-      className="py-3 px-6 rounded-lg bg-white text-blue-500 text-center font-semibold sm:w-1/2 w-[90%] -bottom-5 absolute mx-auto right-0 left-0 flex justify-center items-center gap-3"
+      className="py-3 px-6 rounded-lg bg-white text-blue-500 text-center font-semibold sm:w-1/2 w-full -bottom-5 absolute mx-auto right-0 left-0 flex justify-center items-center gap-3"
       href={link}
     >
       {btnText}
@@ -32,7 +32,7 @@ const renderContent = {
   ),
   3: (
     <Box
-      text={"My curiosity led to working on some cool projects."}
+      text={"My curiosity led to working on some cool projects Wanna check them out?."}
       link={"/portfolio"}
       btnText={"Visit my portfolio"}
     />
