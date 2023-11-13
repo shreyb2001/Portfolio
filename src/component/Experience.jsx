@@ -22,7 +22,7 @@ const Experience = ({
       {isDark ? (
         <>
           <ambientLight intensity={0.1} />
-          <pointLight intensity={12} position={[-0.5, 1, 4]} distance={10} />
+          <pointLight intensity={15} position={[-0.5, 3, 4]} distance={10} />
           <mesh>
             <meshStandardMaterial map={map} side={THREE.BackSide} />
             <sphereGeometry args={[15, 64, 64]} />
@@ -42,7 +42,7 @@ const Experience = ({
         </>
       )}
       <Volcano
-        scale={[0.001, 0.0008, 0.001]}
+        scale={[0.001, 0.0009, 0.001]}
         position={[-1, -3, -1]}
         rotation={[0, Math.PI / 3.5, 0]}
         receiveShadow
