@@ -31,8 +31,40 @@ function App() {
         shadows
       >
         <Suspense fallback={<Loader />}>
+<<<<<<< HEAD
           <Experience
             isDark={isDark}
+=======
+          {isDark ? (
+            <>
+              <ambientLight intensity={0.1} />
+              <pointLight
+                intensity={12}
+                position={[-0.5, 1, 4]}
+                distance={10}
+              />
+              <color attach="background" args={["black"]} />
+              />
+            </>
+          ) : (
+            <>
+              <ambientLight intensity={0.5} />
+              <pointLight position={[10, 5, 10]} intensity={2} />
+              <directionalLight intensity={0.8} position={[-1, 2, 1]} />
+              <hemisphereLight
+                skyColor="#b1eff"
+                groundColor={"#000000"}
+                intensity={0.8}
+              />
+              <Sky scale={[0.05, 0.05, 0.05]} rotation={[0, Math.PI / 16, 0]} />
+            </>
+          )}
+          <Volcano
+            scale={[0.001, 0.0008, 0.001]}
+            position={[-1, -3, -1]}
+            rotation={[0, Math.PI / 3.5, 0]}
+            receiveShadow
+>>>>>>> 887a102f924cf30f9c5813f130267c691e55677f
             isRotating={isRotating}
             setIsRotating={setIsRotating}
             setCurrentStage={setCurrentStage}
