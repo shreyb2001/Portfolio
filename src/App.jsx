@@ -1,80 +1,33 @@
-import { Canvas } from "@react-three/fiber";
-import { Suspense, useEffect, useRef, useState } from "react";
-import Loader from "./component/Loader";
-import Info from "./component/Info";
-import {
-  LightbulbIcon,
-  MoonIcon,
-  Volume1Icon,
-  Volume2Icon,
-} from "lucide-react";
-import Experience from "./component/Experience";
-import sakura from "./audio/sakura.mp3";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Projects from "./pages/Projects";
+import Contact from "./pages/Contact";
+import { Toaster } from "react-hot-toast";
 
-function App() {
-  const audioRef = useRef(new Audio(sakura));
-  audioRef.current.volume = 0.4;
-  audioRef.current.loop = true;
-
-  const [isRotating, setIsRotating] = useState(false);
-  const [currentStage, setCurrentStage] = useState(null);
-  const [isDark, setDark] = useState(false);
-  const [isPlayingMusic, setIsPlayingMusic] = useState(false);
-
-  useEffect(() => {
-    if (isPlayingMusic) {
-      audioRef.current.play();
-    }
-
-    return () => {
-      audioRef.current.pause();
-    };
-  }, [isPlayingMusic]);
-
+const App = () => {
   return (
-    <section className="w-full h-screen relative">
-      <div className="fixed top-16 left-0 right-0 z-10 flex items-center justify-center">
-        {currentStage && <Info currentStage={currentStage} />}
-      </div>
-      <div
-        className={`fixed bottom-10 right-10 z-10 flex flex-row-reverse gap-6 items-center justify-center rounded-full border-none`}
-      >
-        <button onClick={() => setDark(!isDark)}>
-          {isDark ? (
-            <LightbulbIcon className="border-none bg-white w-16 h-16 rounded-full p-4 fill-teal-950 text-teal-950 hover:bg-teal-500 hover:text-white hover:fill-white" />
-          ) : (
-            <MoonIcon className="border-none bg-white w-16 h-16 rounded-full p-4 hover:bg-teal-500 hover:text-white hover:fill-white fill-teal-950 text-teal-950" />
-          )}
-        </button>
-        <button onClick={() => setIsPlayingMusic(!isPlayingMusic)}>
-          <Volume2Icon
-            className={`border-none w-16 h-16 rounded-full p-4 ${
-              isPlayingMusic
-                ? "bg-teal-950 text-white fill-white"
-                : "bg-white fill-teal-950 text-teal-950"
-            }  hover:bg-teal-500 hover:text-white hover:fill-white`}
+    <main className="h-screen w-full">
+      <Toaster />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/*"
+            element={
+              <>
+                <Routes>
+                  <Route path="/about" element={<About />} />
+                  <Route path="/projects" element={<Projects />} />
+                  <Route path="/contact" element={<Contact />} />
+                </Routes>
+              </>
+            }
           />
-        </button>
-      </div>
-      <Canvas
-        className={`${isRotating ? "cursor-grabbing" : "cursor-grab"}`}
-        camera={{ fov: 35, near: 0.1, far: 1000, position: [0, 3, 20] }}
-        shadows
-        dpr={[1, window.devicePixelRatio]}
-      >
-        <Suspense fallback={<Loader />}>
-          <Experience
-            isDark={isDark}
-            isRotating={isRotating}
-            currentStage={currentStage}
-            setCurrentStage={setCurrentStage}
-            setIsRotating={setIsRotating}
-            setDark={setDark}
-          />
-        </Suspense>
-      </Canvas>
-    </section>
+        </Routes>
+      </Router>
+    </main>
   );
-}
+};
 
 export default App;
